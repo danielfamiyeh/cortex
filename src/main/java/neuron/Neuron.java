@@ -4,7 +4,6 @@ import neuron.activation.ActivationFunction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class Neuron {
     double bias;
@@ -52,12 +51,13 @@ public class Neuron {
         randomiseOutputWeights();
     }
 
-    public void forward(){
+    public double forward(){
         netInput = (inputAxons.stream()
                 .mapToDouble(axon -> axon.getWeight() *
                         axon.getDest().getActivation())
                 .sum() + bias)/ inputAxons.size();
         activation = function.getActivation(netInput);
+        return activation;
     }
 
     public void setBias(double b){
