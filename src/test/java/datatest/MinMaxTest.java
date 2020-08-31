@@ -2,10 +2,9 @@ package datatest;
 
 import data.MinMax;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -54,8 +53,8 @@ public class MinMaxTest {
         Collections.addAll(matrixData, matrix1, matrix2, matrix3);
     }
 
-    @BeforeEach
-    public void setUp(){
+    @BeforeAll
+    public static void setUp(){
         initVectors();
         initMatrices();
     }
