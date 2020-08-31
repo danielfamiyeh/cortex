@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ZScoreTest {
     private static List<Double> vector1;
@@ -61,9 +60,6 @@ public class ZScoreTest {
 
         Collections.addAll(standardised, v1, v2, v3);
         ZScore.standardiseVectors(vectorData);
-
-        vectorData.forEach(System.out::println);
-
 
         for(int i=0; i<vectorData.size(); i++){
             Assertions.assertEquals(standardised.get(i), vectorData.get(i));

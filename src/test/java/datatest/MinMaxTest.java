@@ -3,7 +3,6 @@ package datatest;
 import data.MinMax;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,7 +60,7 @@ public class MinMaxTest {
 
 
     @Test
-    public void testVectorNormalise(){
+    public void testScaleVectors(){
         List<Double> vec1Nomalised = new ArrayList<>(3);
         List<Double> vec2Nomalised = new ArrayList<>(3);
         List<Double> vec3Nomalised = new ArrayList<>(3);
@@ -80,7 +79,7 @@ public class MinMaxTest {
     }
 
     @Test
-    public void testMatrixNormalise(){
+    public void testScaleMatrices(){
         List<List<Double>> mat1Normalised = new ArrayList<>();
         List<List<Double>> mat2Normalised = new ArrayList<>();
         List<List<Double>> mat3Normalised = new ArrayList<>();

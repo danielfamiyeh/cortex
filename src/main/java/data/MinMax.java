@@ -52,6 +52,7 @@ public class MinMax {
         }
 
     }
+
     public static void scaleMatrices(List<List<List<Double>>> matrices){
         int numMatrices = matrices.size();
         int numRows = matrices.get(0).size();
@@ -110,4 +111,5 @@ public class MinMax {
             );
         }
     }
+
 }
