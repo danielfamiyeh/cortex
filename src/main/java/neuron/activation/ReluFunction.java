@@ -8,6 +8,6 @@ public class ReluFunction implements ActivationFunction{
 
     @Override
     public double getDerivative(double net){
-        return (net > 0) ? 1 : 0.0;
+        return (net > 0) ? 1.0 : 0.0;
     }
 }

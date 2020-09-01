@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Neuron {
     double bias;
+    double error;
     double netInput;
     double activation;
     private List<Axon> inputAxons;
@@ -15,9 +16,10 @@ public class Neuron {
 
     public Neuron(ActivationFunction function){
         this.function = function;
-        bias = Math.random() - 0.5;
+        bias = Math.random() / 2;
         inputAxons = new ArrayList<>();
         outputAxons = new ArrayList<>();
+        error = 0.0;
         netInput = 0.0;
         activation = 0.0;
     }
@@ -52,12 +54,32 @@ public class Neuron {
     }
 
     public double forward(){
-        netInput = (inputAxons.stream()
+        netInput = inputAxons.stream()
                 .mapToDouble(axon -> axon.getWeight() *
                         axon.getDest().getActivation())
-                .sum() + bias)/ inputAxons.size();
+                .sum() / inputAxons.size();
+        netInput += bias;
         activation = function.getActivation(netInput);
         return activation;
+    }
+
+    public void updateWeights(double alpha){
+        for(Axon axon : inputAxons){
+            axon.decrementWeight(axon.getDest().getActivation() * alpha * error);
+        }
+        bias -= alpha * error;
+    }
+
+    public ActivationFunction getFunction(){
+        return function;
+    }
+
+    public void setError(double e){
+        error = e;
+    }
+
+    public double getError(){
+        return error;
     }
 
     public void setBias(double b){

@@ -8,8 +8,10 @@ import java.util.stream.IntStream;
 public class Layer {
     private List<Double> activation;
     private List<Neuron> neuronList;
+    private ActivationFunction function;
 
     public Layer(int size, ActivationFunction function){
+        this.function = function;
         activation = IntStream.range(0, size)
                 .mapToDouble(i -> 0.0)
                 .boxed().collect(Collectors.toList());
@@ -19,8 +21,10 @@ public class Layer {
     }
 
     public void forward(){
-        for(int neuron=0; neuron<neuronList.size(); neuron++){
-            activation.set(neuron, neuronList.get(neuron).forward());
+        if(function != null) {
+            for (int neuron = 0; neuron < neuronList.size(); neuron++) {
+                activation.set(neuron, neuronList.get(neuron).forward());
+            }
         }
     }
 
@@ -55,7 +59,7 @@ public class Layer {
     }
 
     public void connect(Layer dest){
-        connect(dest, Math.random() - 0.5);
+        connect(dest, (this.function == null) ? 1 : Math.random() - 0.5);
     }
 
     public List<Double> getActivation(){
@@ -69,12 +73,22 @@ public class Layer {
         }
     }
 
+    public void updateWeights(double alpha){
+        for (Neuron neuron : neuronList) neuron.updateWeights(alpha);
+    }
+
     public int getSize(){
         return neuronList.size();
     }
 
     public void setBias(double b){
         neuronList.forEach(neuron -> neuron.setBias(b));
+    }
+
+    public void setError(List<Double> e){
+        for(int i=0; i<neuronList.size(); i++){
+            neuronList.get(i).setError(e.get(i));
+        }
     }
 
     public List<Neuron> getNeuronList(){
