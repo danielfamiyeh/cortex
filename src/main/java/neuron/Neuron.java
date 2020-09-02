@@ -9,6 +9,8 @@ import java.util.List;
 public class Neuron {
     double bias;
     double error;
+    List<Double> deltaWeight;
+    double deltaBias;
     double netInput;
     double activation;
     private List<Axon> inputAxons;
@@ -21,12 +23,15 @@ public class Neuron {
         inputAxons = new ArrayList<>();
         outputAxons = new ArrayList<>();
         error = 0.0;
+        deltaBias = 0.0;
+        deltaWeight = new ArrayList<>();
         netInput = 0.0;
         activation = 0.0;
     }
 
     public void addInputAxon(Axon a){
         inputAxons.add(a);
+        deltaWeight.add(0.0);
     }
 
     public List<Axon> getInputAxons(){
@@ -39,6 +44,22 @@ public class Neuron {
 
     public List<Axon> getOutputAxons(){
         return outputAxons;
+    }
+
+    public List<Double> getDeltaWeight(){
+        return deltaWeight;
+    }
+
+    public void setDeltaWeight(int index, double dw){
+        deltaWeight.set(index, dw);
+    }
+
+    public void setDeltaBias(double db){
+        deltaBias = db;
+    }
+
+    public double getDeltaBias(){
+        return deltaBias;
     }
 
     public void randomiseInputWeights(){

@@ -1,9 +1,7 @@
 package optimisertest;
 
-import data.MinMax;
 import neuron.Layer;
 import neuron.activation.ReluFunction;
-import neuron.activation.SigmoidFunction;
 import optimiser.algorithm.Optimiser;
 import optimiser.algorithm.SGD;
 import optimiser.loss.MSEFunction;
@@ -52,14 +50,15 @@ public class OptimiserTest {
 
     @Test
     public void testSGD(){
-        optimiserSGD.optimiseDNN(network, xorDataset,
-                labels, new MSEFunction(), 250000, 0.01);
+       // optimiserSGD.optimiseDNN(network, xorDataset,
+         //       labels, new MSEFunction(), 87500, 0.01);
     }
 
     @Test
     public void testSGDMomentum(){
-      //  ((SGD)optimiserSGD).setBeta(0.8);
-       // optimiserSGD.optimiseDNN(network, xorDataset,
-       //         labels, new MSEFunction(), 100000, 0.1);
+        System.out.println("\n");
+        ((SGD)optimiserSGD).setBeta(0.5);
+        optimiserSGD.optimiseDNN(network, xorDataset,
+                labels, new MSEFunction(), 175000, 0.01);
     }
 }

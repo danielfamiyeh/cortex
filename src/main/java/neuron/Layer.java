@@ -2,6 +2,7 @@ package neuron;
 import neuron.activation.ActivationFunction;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -73,8 +74,8 @@ public class Layer {
         }
     }
 
-    public void updateWeights(double alpha){
-        for (Neuron neuron : neuronList) neuron.updateWeights(alpha);
+    public void updateWeights(BiConsumer<Neuron, Double> updateRoutine, double alpha){
+        for (Neuron neuron : neuronList) updateRoutine.accept(neuron, alpha);
     }
 
     public int getSize(){
