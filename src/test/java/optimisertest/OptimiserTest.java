@@ -52,7 +52,7 @@ public class OptimiserTest {
     public void testSGD(){
        underTest.optimise(
                network, xorDataset,
-               labels, new MSEFunction(), 250000, 0.01,
+               labels, new MSEFunction(), 100000, 0.01,
                OptimAlgo.sgd
        );
     }
@@ -62,8 +62,18 @@ public class OptimiserTest {
         System.out.println("\n");
         underTest.optimise(
                 network, xorDataset,
-                labels, new MSEFunction(), 250000, 0.01,
+                labels, new MSEFunction(), 100000, 0.01,
                 OptimAlgo.momentum
+        );
+    }
+
+    @Test
+    public void testRMSProp(){
+        System.out.println("\n");
+        underTest.optimise(
+                network, xorDataset,
+                labels, new MSEFunction(), 10000, 0.05,
+                OptimAlgo.rms
         );
     }
 }

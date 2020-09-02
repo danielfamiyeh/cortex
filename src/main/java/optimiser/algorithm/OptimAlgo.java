@@ -8,6 +8,32 @@ import java.util.function.BiConsumer;
 
 public class OptimAlgo {
     private static double beta = 0.5;
+    private static double epsilon = 1E-7;
+
+    public static BiConsumer<Neuron, Double> rms = (neuron, alpha) -> {
+        double oldBias = beta * neuron.getDeltaBias();
+        double newBias = (1 - beta) * Math.pow(neuron.getError(), 2);
+        List<Axon> inputAxons = neuron.getInputAxons();
+
+        for(int i=0; i<inputAxons.size(); i++){
+            Axon axon = inputAxons.get(i);
+            double delW = axon.getDest().getActivation() * neuron.getError();
+            double oldDw = beta * neuron.getDeltaWeight().get(i);
+            double newDw = (1-beta) *
+                    Math.pow(delW, 2);
+            neuron.setDeltaWeight(i, oldDw + newDw);
+            axon.decrementWeight(alpha * (
+                    delW/(Math.sqrt(neuron.getDeltaWeight().get(i)) + epsilon)
+                    ));
+        }
+
+        neuron.setDeltaBias(oldBias + newBias);
+        neuron.setBias(neuron.getBias() - alpha * (
+              neuron.getError()/
+                      (Math.sqrt(neuron.getDeltaBias()) + epsilon)
+              ));
+    };
+
     public static BiConsumer<Neuron, Double> momentum = (neuron, alpha) -> {
         double oldBias = beta * neuron.getDeltaBias();
         double newBias = (1 - beta) * neuron.getError();
@@ -17,11 +43,11 @@ public class OptimAlgo {
             Axon axon = inputAxons.get(i);
             double oldDw = beta * neuron.getDeltaWeight().get(i);
             double newDw = (1-beta) * axon.getDest().getActivation() * neuron.getError();
-            neuron.setDeltaWeight(i, alpha *(oldDw + newDw));
-            axon.decrementWeight(neuron.getDeltaWeight().get(i));
+            neuron.setDeltaWeight(i, oldDw + newDw);
+            axon.decrementWeight(alpha * neuron.getDeltaWeight().get(i));
         }
-        neuron.setDeltaBias(alpha * (oldBias + newBias));
-        neuron.setBias(neuron.getBias() - neuron.getDeltaBias());
+        neuron.setDeltaBias(oldBias + newBias);
+        neuron.setBias(neuron.getBias() - (alpha * neuron.getDeltaBias()));
     };
 
     public static BiConsumer<Neuron, Double> sgd = (neuron, alpha) -> {
