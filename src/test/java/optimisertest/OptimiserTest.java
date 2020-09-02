@@ -2,8 +2,8 @@ package optimisertest;
 
 import neuron.Layer;
 import neuron.activation.ReluFunction;
-import optimiser.algorithm.Optimiser;
-import optimiser.algorithm.SGD;
+import optimiser.DNNOptimiser;
+import optimiser.algorithm.OptimAlgo;
 import optimiser.loss.MSEFunction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ public class OptimiserTest {
     private static List<List<Double>> xorDataset;
     private static List<List<Double>> labels;
     private static List<Layer> network;
-    private static Optimiser optimiserSGD;
+    private static DNNOptimiser underTest;
 
     @BeforeEach
     public void setUp(){
@@ -25,7 +25,7 @@ public class OptimiserTest {
         labels = new ArrayList<>();
         network = new ArrayList<>();
 
-        optimiserSGD = new SGD();
+        underTest = new DNNOptimiser();
 
         Collections.addAll(xorDataset, Arrays.asList(0.0, 0.0),
                 Arrays.asList(0.0, 1.0),
@@ -50,15 +50,20 @@ public class OptimiserTest {
 
     @Test
     public void testSGD(){
-       // optimiserSGD.optimiseDNN(network, xorDataset,
-         //       labels, new MSEFunction(), 87500, 0.01);
+       underTest.optimise(
+               network, xorDataset,
+               labels, new MSEFunction(), 250000, 0.01,
+               OptimAlgo.sgd
+       );
     }
 
     @Test
     public void testSGDMomentum(){
         System.out.println("\n");
-        ((SGD)optimiserSGD).setBeta(0.5);
-        optimiserSGD.optimiseDNN(network, xorDataset,
-                labels, new MSEFunction(), 175000, 0.01);
+        underTest.optimise(
+                network, xorDataset,
+                labels, new MSEFunction(), 250000, 0.01,
+                OptimAlgo.momentum
+        );
     }
 }

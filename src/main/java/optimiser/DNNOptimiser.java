@@ -1,6 +1,5 @@
-package optimiser.algorithm;
+package optimiser;
 
-import neuron.Axon;
 import neuron.Layer;
 import neuron.Neuron;
 import optimiser.loss.LossFunction;
@@ -8,13 +7,12 @@ import optimiser.loss.LossFunction;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class SGD implements Optimiser {
-    private Double beta = null;
+public class DNNOptimiser {
+    public DNNOptimiser(){}
 
-    @Override
-    public void optimiseDNN(
-            List<Layer> network, List<List<Double>> dataset, List<List<Double>> labels,
-            LossFunction lossFunction, int numEpochs, double alpha) {
+    public void optimise(List<Layer> network, List<List<Double>> dataset,
+                         List<List<Double>> labels, LossFunction lossFunction,
+                         int numEpochs, double alpha, BiConsumer<Neuron, Double> algorithm){
 
         int numExamples = dataset.size();
         Layer inputLayer = network.get(0);
@@ -56,7 +54,7 @@ public class SGD implements Optimiser {
                                 .stream()
                                 .mapToDouble(axon ->
                                         axon.getWeight()
-                                * axon.getDest().getError())
+                                                * axon.getDest().getError())
                                 .sum() / neuron.getOutputAxons().size();
                         neuronError *= neuron.getFunction().getDerivative(
                                 neuron.getNetInput());
@@ -65,42 +63,12 @@ public class SGD implements Optimiser {
                 }
                 // Weight update
                 for(int j=network.size()-1; j>0; j--){
-                    network.get(j).updateWeights((beta == null) ?
-                            sgdUpdate : sgdMomentum, alpha);
+                    network.get(j).updateWeights(algorithm, alpha);
                 }
             }
             cost /= numExamples;
-    //        System.out.println("Epoch: " + (epoch+1));
-      //      System.out.println("Average Error: " + cost + "\n");
+            //        System.out.println("Epoch: " + (epoch+1));
+            //      System.out.println("Average Error: " + cost + "\n");
         }
     }
-
-    public void setBeta(double b){
-        beta = b;
-    }
-
-    private BiConsumer<Neuron, Double> sgdMomentum = (neuron, alpha) -> {
-        double oldBias = beta * neuron.getDeltaBias();
-        double newBias = (1 - beta) * neuron.getError();
-
-        List<Axon> inputAxons = neuron.getInputAxons();
-        for(int i=0; i<inputAxons.size(); i++){
-            Axon axon = inputAxons.get(i);
-            double oldDw = beta * neuron.getDeltaWeight().get(i);
-            double newDw = (1-beta) * axon.getDest().getActivation() * neuron.getError();
-            neuron.setDeltaWeight(i, alpha *(oldDw + newDw));
-            axon.decrementWeight(neuron.getDeltaWeight().get(i));
-        }
-        neuron.setDeltaBias(alpha * (oldBias + newBias));
-        neuron.setBias(neuron.getBias() - neuron.getDeltaBias());
-    };
-
-    private BiConsumer<Neuron, Double> sgdUpdate = (neuron, alpha) -> {
-        double error = neuron.getError();
-        List<Axon> inputAxons = neuron.getInputAxons();
-        for(Axon axon : inputAxons){
-            axon.decrementWeight(axon.getDest().getActivation() * alpha * error);
-        }
-        neuron.setBias(neuron.getBias() - alpha * error);
-    };
 }
