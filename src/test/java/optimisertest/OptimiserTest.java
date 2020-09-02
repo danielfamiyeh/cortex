@@ -1,11 +1,13 @@
 package optimisertest;
 
+import data.MinMax;
 import neuron.Layer;
 import neuron.activation.ReluFunction;
 import neuron.activation.SigmoidFunction;
+import optimiser.algorithm.Optimiser;
 import optimiser.algorithm.SGD;
 import optimiser.loss.MSEFunction;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,15 +19,15 @@ public class OptimiserTest {
     private static List<List<Double>> xorDataset;
     private static List<List<Double>> labels;
     private static List<Layer> network;
-    private static SGD optimiser;
+    private static Optimiser optimiserSGD;
 
-    @BeforeAll
-    public static void setUp(){
+    @BeforeEach
+    public void setUp(){
         xorDataset = new ArrayList<>();
         labels = new ArrayList<>();
         network = new ArrayList<>();
 
-        optimiser = new SGD();
+        optimiserSGD = new SGD();
 
         Collections.addAll(xorDataset, Arrays.asList(0.0, 0.0),
                 Arrays.asList(0.0, 1.0),
@@ -38,7 +40,7 @@ public class OptimiserTest {
                 Arrays.asList(0.0));
 
         Collections.addAll(network, new Layer(2, null),
-                new Layer(2, new ReluFunction()),
+                new Layer(3, new ReluFunction()),
                 new Layer(1, new ReluFunction()));
 
         for(int i=0; i<network.size()-1; i++){
@@ -50,7 +52,14 @@ public class OptimiserTest {
 
     @Test
     public void testSGD(){
-        optimiser.optimiseDNN(network, xorDataset,
-                labels, new MSEFunction(), 5000);
+        optimiserSGD.optimiseDNN(network, xorDataset,
+                labels, new MSEFunction(), 250000, 0.01);
+    }
+
+    @Test
+    public void testSGDMomentum(){
+      //  ((SGD)optimiserSGD).setBeta(0.8);
+       // optimiserSGD.optimiseDNN(network, xorDataset,
+       //         labels, new MSEFunction(), 100000, 0.1);
     }
 }

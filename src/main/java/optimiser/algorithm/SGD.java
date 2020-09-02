@@ -12,7 +12,7 @@ public class SGD implements Optimiser {
     @Override
     public void optimiseDNN(
             List<Layer> network, List<List<Double>> dataset, List<List<Double>> labels,
-            LossFunction lossFunction, int numEpochs) {
+            LossFunction lossFunction, int numEpochs, double alpha) {
 
         int numExamples = dataset.size();
         Layer inputLayer = network.get(0);
@@ -35,8 +35,16 @@ public class SGD implements Optimiser {
 
                 errorVector = lossFunction.getDerivative(yHat, labels.get(i));
 
-                System.out.println(yHat);
-
+                for(int j=0; j<errorVector.size(); j++){
+                    Neuron outputNeuron = outputLayer.getNeuronList().get(j);
+                    errorVector.set(j, errorVector.get(j) *
+                            outputNeuron.getFunction().getDerivative(
+                                    outputNeuron.getNetInput()));
+                }
+                if(epoch == numEpochs-1) {
+                    System.out.println(yHat);
+                    System.out.println("Error vector" + errorVector);
+                }
                 // Backprop
                 outputLayer.setError(errorVector);
                 for(int j=network.size()-2; j>0; j--){
@@ -50,17 +58,27 @@ public class SGD implements Optimiser {
                                 .sum() / neuron.getOutputAxons().size();
                         neuronError *= neuron.getFunction().getDerivative(
                                 neuron.getNetInput());
-                        neuron.setError(neuronError);
+                        if(beta == null) {
+                            neuron.setError(neuronError);
+                        } else {
+                            double oldError = beta * neuron.getError();
+                            neuronError *= (1 - beta);
+                            neuron.setError(oldError + neuronError);
+                        }
                     }
                 }
                 // Weight update
                 for(int j=network.size()-1; j>0; j--){
-                    network.get(j).updateWeights(0.05);
+                    network.get(j).updateWeights(alpha);
                 }
             }
             cost /= numExamples;
-            System.out.println("Epoch: " + (epoch+1));
-            System.out.println("Average Error: " + cost + "\n");
+    //        System.out.println("Epoch: " + (epoch+1));
+      //      System.out.println("Average Error: " + cost + "\n");
         }
+    }
+
+    public void setBeta(double b){
+        beta = b;
     }
 }

@@ -1,6 +1,7 @@
 package neuron;
 
 import neuron.activation.ActivationFunction;
+import neuron.activation.ReluFunction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Neuron {
 
     public Neuron(ActivationFunction function){
         this.function = function;
-        bias = Math.random() / 2;
+        bias = Math.random();
         inputAxons = new ArrayList<>();
         outputAxons = new ArrayList<>();
         error = 0.0;

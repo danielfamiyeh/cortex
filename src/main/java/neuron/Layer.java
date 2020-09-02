@@ -59,7 +59,7 @@ public class Layer {
     }
 
     public void connect(Layer dest){
-        connect(dest, (this.function == null) ? 1 : Math.random() - 0.5);
+        connect(dest, (this.function == null) ? 1 : Math.random());
     }
 
     public List<Double> getActivation(){

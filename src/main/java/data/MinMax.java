@@ -42,12 +42,11 @@ public class MinMax {
         }
 
         // Scale feature vectors according to ranges
-        for (List<Double> vector : vectors) {
-            current = vector;
+        for (int j=0; j<vectors.size(); j++) {
             for (int i = 0; i < length; i++) {
                 double range = ranges.get(i);
-                double comp = current.get(i);
-                current.set(i, ((comp - minVals.get(i)) / range));
+                double comp = vectors.get(j).get(i);
+                vectors.get(j).set(i, ((comp - minVals.get(i)) / range));
             }
         }
 
