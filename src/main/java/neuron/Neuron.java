@@ -5,12 +5,14 @@ import neuron.activation.ReluFunction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Neuron {
     double bias;
     double error;
-    List<Double> deltaWeight;
-    double deltaBias;
+    List<List<Double>> deltaWeight;
+    List<Double> deltaBias;
     double netInput;
     double activation;
     private List<Axon> inputAxons;
@@ -23,15 +25,18 @@ public class Neuron {
         inputAxons = new ArrayList<>();
         outputAxons = new ArrayList<>();
         error = 0.0;
-        deltaBias = 0.0;
-        deltaWeight = new ArrayList<>();
+        deltaBias = IntStream.range(0, 2).mapToDouble(i -> 0.0)
+                .boxed().collect(Collectors.toList());
+        deltaWeight = IntStream.range(0, 2).mapToObj(i -> new ArrayList<Double>())
+                .collect(Collectors.toList());
         netInput = 0.0;
         activation = 0.0;
     }
 
     public void addInputAxon(Axon a){
         inputAxons.add(a);
-        deltaWeight.add(0.0);
+        deltaWeight.get(0).add(0.0);
+        deltaWeight.get(1).add(0.0);
     }
 
     public List<Axon> getInputAxons(){
@@ -46,19 +51,19 @@ public class Neuron {
         return outputAxons;
     }
 
-    public List<Double> getDeltaWeight(){
+    public List<List<Double>> getDeltaWeight(){
         return deltaWeight;
     }
 
-    public void setDeltaWeight(int index, double dw){
-        deltaWeight.set(index, dw);
+    public void setDeltaWeight(int i, int j, double dw){
+        deltaWeight.get(i).set(j, dw);
     }
 
-    public void setDeltaBias(double db){
-        deltaBias = db;
+    public void setDeltaBias(int i, double db){
+        deltaBias.set(i, db);
     }
 
-    public double getDeltaBias(){
+    public List<Double> getDeltaBias(){
         return deltaBias;
     }
 

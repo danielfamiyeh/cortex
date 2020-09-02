@@ -72,8 +72,18 @@ public class OptimiserTest {
         System.out.println("\n");
         underTest.optimise(
                 network, xorDataset,
-                labels, new MSEFunction(), 10000, 0.05,
+                labels, new MSEFunction(), 10000, 0.01,
                 OptimAlgo.rms
+        );
+    }
+
+    @Test
+    public void testAdam(){
+        System.out.println("\n");
+        underTest.optimise(
+                network, xorDataset,
+                labels, new MSEFunction(), 10000, 0.01,
+                OptimAlgo.adam
         );
     }
 }
