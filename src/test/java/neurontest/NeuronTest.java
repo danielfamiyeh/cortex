@@ -119,5 +119,4 @@ public class NeuronTest {
         Assertions.assertEquals(2.2, underTest.getNetInput() * 2 -
                 underTest.getBias());
     }
-
 }

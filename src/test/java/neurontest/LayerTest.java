@@ -1,6 +1,7 @@
 package neurontest;
 
 import neuron.Layer;
+import neuron.Neuron;
 import neuron.activation.ReluFunction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -100,5 +101,16 @@ public class LayerTest {
         hiddenLayer.forward();
         outputLayer.forward();
         System.out.println(outputLayer.getActivation());
+    }
+
+    @Test
+    public void testDisconnect(){
+        inputLayer.connect(hiddenLayer);
+        hiddenLayer.connect(outputLayer);
+        hiddenLayer.disconnect();
+
+        List<Neuron> hiddenLayerNeurons = hiddenLayer.getNeuronList();
+        hiddenLayerNeurons.forEach(n ->
+            Assertions.assertEquals(0, n.getOutputAxons().size()));
     }
 }

@@ -59,6 +59,14 @@ public class Layer {
         }
     }
 
+    public void resetDeltas(){
+        neuronList.forEach(Neuron::resetDeltas);
+    }
+
+    public void disconnect(){
+        neuronList.forEach(Neuron::disconnect);
+    }
+
     public void connect(Layer dest){
         connect(dest, (this.function == null) ? 1 : Math.random());
     }

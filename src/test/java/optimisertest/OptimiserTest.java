@@ -1,10 +1,12 @@
 package optimisertest;
 
 import neuron.Layer;
+import neuron.Neuron;
 import neuron.activation.ReluFunction;
 import optimiser.DNNOptimiser;
 import optimiser.algorithm.OptimAlgo;
 import optimiser.loss.MSEFunction;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -85,5 +87,28 @@ public class OptimiserTest {
                 labels, new MSEFunction(), 10000, 0.01,
                 OptimAlgo.adam
         );
+    }
+
+    @Test
+    public void resetDeltas(){
+        underTest.optimise(
+                network, xorDataset,
+                labels, new MSEFunction(), 10000, 0.01,
+                OptimAlgo.adam
+        );
+
+        network.forEach(Layer::resetDeltas);
+        network.forEach(layer ->
+        {
+            List<Neuron> neuronList = layer.getNeuronList();
+            neuronList.forEach(neuron -> {
+                List<List<Double>> deltaWeights = neuron.getDeltaWeight();
+                List<Double> deltaBias = neuron.getDeltaBias();
+                deltaBias.forEach(b -> Assertions.assertEquals(0, b));
+                deltaWeights.forEach(dwArray -> dwArray.forEach(db ->
+                        Assertions.assertEquals(0, db)
+                ));
+            });
+        });
     }
 }

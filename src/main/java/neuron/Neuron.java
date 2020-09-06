@@ -90,11 +90,16 @@ public class Neuron {
         return activation;
     }
 
-    public void updateWeights(double alpha){
-        for(Axon axon : inputAxons){
-            axon.decrementWeight(axon.getDest().getActivation() * alpha * error);
-        }
-        bias -= alpha * error;
+    public void resetDeltas(){
+        deltaWeight = deltaWeight.stream().map(doubles -> IntStream.range(0, doubles.size())
+                .mapToDouble(j -> 0.0).boxed().collect(Collectors.toList()))
+                .collect(Collectors.toList());
+        deltaBias = deltaBias.stream().map(db -> Math.abs(db) * 0).collect(Collectors.toList());
+    }
+
+    public void disconnect(){
+        inputAxons = new ArrayList<>();
+        outputAxons = new ArrayList<>();
     }
 
     public ActivationFunction getFunction(){
