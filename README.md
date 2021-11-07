@@ -1,4 +1,4 @@
-# NodeNeural
+# Neuron
 Yet another neural network library, wriitten in Java.
 
 ## Features
