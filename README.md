@@ -1,5 +1,5 @@
 # Neuron
-Yet another neural network library, wriitten in Java.
+A deep learning library.
 
 ## Features
 - Facilitates the creation DNN models by connecting Layer objects together
