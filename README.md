@@ -1,4 +1,4 @@
-# Neuron
+# neuron
 A deep learning library.
 
 ## Features
