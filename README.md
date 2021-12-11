@@ -1,4 +1,4 @@
-# neuron
+# cortex
 A deep learning library.
 
 ## Features
