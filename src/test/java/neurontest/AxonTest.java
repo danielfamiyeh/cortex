@@ -12,7 +12,7 @@ public class AxonTest {
   private static Neuron testDest;
 
   @BeforeEach
-  public void setUp() {
+  public static void setUp() {
     testDest = new Neuron(null);
     underTest = new Axon(7, testDest);
   }

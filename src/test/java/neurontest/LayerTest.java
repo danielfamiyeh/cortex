@@ -17,7 +17,7 @@ public class LayerTest {
   private static Layer outputLayer;
 
   @BeforeEach
-  public void setUp() {
+  public static void setUp() {
     inputLayer = new Layer(2, null);
     hiddenLayer = new Layer(2, new ReluFunction());
     outputLayer = new Layer(1, new ReluFunction());

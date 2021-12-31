@@ -9,7 +9,7 @@ import java.util.List;
 public class FileIOTest {
 
   @Test
-  public void fileIOTestRead() {
+  public void testFileIORead() {
     double[][] xorFeatureVectors = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
     List<List<Double>> xorData = FileIO.read("src/datasets/xor.csv");
 

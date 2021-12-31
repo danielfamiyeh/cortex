@@ -1,0 +1,9 @@
+neurontest/activationtest/ActivationFunctionTest.class
+optimizertest/losstest/LossTest.class
+datatest/ZScoreTest.class
+datatest/MinMaxTest.class
+neurontest/LayerTest.class
+optimizertest/OptimizerTest.class
+neurontest/NeuronTest.class
+datatest/FileIOTest.class
+neurontest/AxonTest.class

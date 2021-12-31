@@ -1,0 +1,14 @@
+/home/daniel/cortex/src/main/java/data/FileIO.java
+/home/daniel/cortex/src/main/java/neuron/activation/ReluFunction.java
+/home/daniel/cortex/src/main/java/optimizer/DNNOptimizer.java
+/home/daniel/cortex/src/main/java/optimizer/algorithm/OptimAlgo.java
+/home/daniel/cortex/src/main/java/neuron/activation/SigmoidFunction.java
+/home/daniel/cortex/src/main/java/neuron/Neuron.java
+/home/daniel/cortex/src/main/java/neuron/Layer.java
+/home/daniel/cortex/src/main/java/optimizer/algorithm/Optimiser.java
+/home/daniel/cortex/src/main/java/neuron/activation/ActivationFunction.java
+/home/daniel/cortex/src/main/java/data/ZScore.java
+/home/daniel/cortex/src/main/java/optimizer/loss/LossFunction.java
+/home/daniel/cortex/src/main/java/optimizer/loss/MSEFunction.java
+/home/daniel/cortex/src/main/java/data/MinMax.java
+/home/daniel/cortex/src/main/java/neuron/Axon.java

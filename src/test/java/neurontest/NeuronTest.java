@@ -19,7 +19,7 @@ public class NeuronTest {
   private static double netInput;
 
   @BeforeEach
-  public void setUp() {
+  public static void setUp() {
     underTest = new Neuron(new ReluFunction());
     dest1 = new Neuron(null);
     dest2 = new Neuron(null);
@@ -82,8 +82,7 @@ public class NeuronTest {
   @Test
   public void testGetBias() {
     double bias = underTest.getBias();
-    Assertions.assertTrue(bias >= -0.5 &&
-        bias <= 0.5);
+    Assertions.assertTrue(bias >= 0 && bias <= 1);
   }
 
   @Test

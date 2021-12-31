@@ -1,0 +1,9 @@
+/home/daniel/cortex/src/test/java/neurontest/activationtest/ActivationFunctionTest.java
+/home/daniel/cortex/src/test/java/optimizertest/losstest/LossTest.java
+/home/daniel/cortex/src/test/java/neurontest/LayerTest.java
+/home/daniel/cortex/src/test/java/neurontest/NeuronTest.java
+/home/daniel/cortex/src/test/java/optimizertest/OptimizerTest.java
+/home/daniel/cortex/src/test/java/datatest/ZScoreTest.java
+/home/daniel/cortex/src/test/java/datatest/FileIOTest.java
+/home/daniel/cortex/src/test/java/datatest/MinMaxTest.java
+/home/daniel/cortex/src/test/java/neurontest/AxonTest.java
