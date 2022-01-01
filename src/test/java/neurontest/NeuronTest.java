@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+/**
+ * Neuron test suite
+ */
 public class NeuronTest {
   private static Neuron underTest;
   private static Neuron dest1;
@@ -48,12 +51,12 @@ public class NeuronTest {
   }
 
   @Test
-  public void testRandomiseInputWeights() {
+  public void testrandomizeInputWeights() {
     double[] weights = {1.7, -2.3};
 
     underTest.addInputAxon(axon1);
     underTest.addInputAxon(axon2);
-    underTest.randomiseInputWeights();
+    underTest.randomizeInputWeights();
 
     for (int i = 0; i < weights.length; i++) {
       List<Axon> inputAxons = underTest.getInputAxons();
@@ -69,7 +72,7 @@ public class NeuronTest {
 
     underTest.addOutputAxon(axon2);
     underTest.addOutputAxon(axon1);
-    underTest.randomiseOutputWeights();
+    underTest.randomizeOutputWeights();
 
     for (int i = 0; i < weights.length; i++) {
       List<Axon> outputAxons = underTest.getOutputAxons();

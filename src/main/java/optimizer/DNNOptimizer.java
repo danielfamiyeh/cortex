@@ -5,15 +5,30 @@ import neuron.Neuron;
 import optimizer.loss.LossFunction;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
+
+/**
+ * Class representing a deep neural network optimizier
+ */
 
 public class DNNOptimizer {
   public DNNOptimizer() {
   }
 
-  public List<List<Double>> optimise(List<Layer> network,
+  /**
+   * Optimization function
+   * @param network       List of layers representing a DNN
+   * @param dataset       List of lists of input values
+   * @param labels        List of lists of expected values
+   * @param lossFunction  Loss function to use for optimization
+   * @param numEpochs     Number of epochs to train network against dataset
+   * @param alpha         Learning rate
+   * @param algorithm     Optimization algorithm
+   *
+   * @return Final list of errors at the end of training
+   */
+  public List<List<Double>> optimize(List<Layer> network,
                                  List<List<Double>> dataset,
                        List<List<Double>> labels, LossFunction lossFunction,
                        int numEpochs, double alpha, BiConsumer<Neuron, Double> algorithm) {
@@ -22,7 +37,7 @@ public class DNNOptimizer {
     Layer inputLayer = network.get(0);
     Layer outputLayer = network.get(network.size() - 1);
     List<Double> errorVector;
-    List<Double> yHat;
+    List<Double> y;
     List<List<Double>> finalError = new ArrayList<>();
 
     for (int epoch = 0; epoch < numEpochs; epoch++) {
@@ -34,11 +49,11 @@ public class DNNOptimizer {
         for (Layer layer : network) {
           layer.forward();
         }
-        yHat = outputLayer.getActivation();
-        cost += lossFunction.getLoss(yHat,
+        y = outputLayer.getActivation();
+        cost += lossFunction.getLoss(y,
             labels.get(i));
 
-        errorVector = lossFunction.getDerivative(yHat, labels.get(i));
+        errorVector = lossFunction.getDerivative(y, labels.get(i));
 
         for (int j = 0; j < errorVector.size(); j++) {
           Neuron outputNeuron = outputLayer.getNeuronList().get(j);

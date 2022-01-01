@@ -1,9 +1,17 @@
 package neuron;
 
+/**
+ * Class representing a connection between two Neurons
+ */
 public class Axon {
   private double weight;
   private Neuron dest;
 
+  /**
+   *
+   * @param weight Weight of connection
+   * @param dest   Destination neuron
+   */
   public Axon(double weight, Neuron dest) {
     this.weight = weight;
     this.dest = dest;
@@ -25,7 +33,7 @@ public class Axon {
     weight -= d;
   }
 
-  public void randomiseWeight() {
+  public void randomizeWeight() {
     weight = Math.random() - 0.5;
   }
 }

@@ -1,5 +1,8 @@
 package neuron.activation;
 
+/**
+ * Class representing a sigmoid function
+ */
 public class SigmoidFunction implements ActivationFunction {
   @Override
   public double getActivation(double net) {

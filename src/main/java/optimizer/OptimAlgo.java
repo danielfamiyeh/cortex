@@ -1,4 +1,4 @@
-package optimizer.algorithm;
+package optimizer;
 
 import neuron.Axon;
 import neuron.Neuron;
@@ -6,11 +6,17 @@ import neuron.Neuron;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+/**
+ * Class representing an optimization algorithm
+ */
 public class OptimAlgo {
   private static double beta = 0.5;
   private static double beta2 = 0.5;
   private static double epsilon = 1E-7;
 
+  /**
+   * Adaptive moment algorithm
+   */
   public static BiConsumer<Neuron, Double> adam = (neuron, alpha) -> {
     // Momentum bias update value
     double vDeltaBias = beta * neuron.getDeltaBias().get(0) +
@@ -44,6 +50,9 @@ public class OptimAlgo {
     ));
   };
 
+  /**
+   * Root-mean-square algorithm
+   */
   public static BiConsumer<Neuron, Double> rms = (neuron, alpha) -> {
     double oldBias = beta * neuron.getDeltaBias().get(0);
     double newBias = (1 - beta) * Math.pow(neuron.getError(), 2);
@@ -68,6 +77,9 @@ public class OptimAlgo {
     ));
   };
 
+  /**
+   * Stochastic gradient descent with momentum algorithm
+   */
   public static BiConsumer<Neuron, Double> momentum = (neuron, alpha) -> {
     double oldBias = beta * neuron.getDeltaBias().get(0);
     double newBias = (1 - beta) * neuron.getError();
@@ -84,6 +96,9 @@ public class OptimAlgo {
     neuron.setBias(neuron.getBias() - (alpha * neuron.getDeltaBias().get(0)));
   };
 
+  /**
+   * Stochastic gradient descent algorithm
+   */
   public static BiConsumer<Neuron, Double> sgd = (neuron, alpha) -> {
     double error = neuron.getError();
     List<Axon> inputAxons = neuron.getInputAxons();

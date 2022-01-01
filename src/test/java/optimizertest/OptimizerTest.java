@@ -12,7 +12,7 @@ import neuron.Neuron;
 import neuron.activation.ReluFunction;
 
 import optimizer.DNNOptimizer;
-import optimizer.algorithm.OptimAlgo;
+import optimizer.OptimAlgo;
 import optimizer.loss.MSEFunction;
 
 public class OptimizerTest {
@@ -57,7 +57,7 @@ public class OptimizerTest {
 
   @Test
   public void testSGD() {
-    isOptimized(underTest.optimise(
+    isOptimized(underTest.optimize(
         network, xorDataset,
         labels, new MSEFunction(), 100000, 0.02,
         OptimAlgo.sgd
@@ -76,7 +76,7 @@ public class OptimizerTest {
 
   @Test
   public void testRMSProp() {
-    isOptimized(underTest.optimise(
+    isOptimized(underTest.optimize(
         network, xorDataset,
         labels, new MSEFunction(), 20000, 0.05,
         OptimAlgo.rms
@@ -85,7 +85,7 @@ public class OptimizerTest {
 
   @Test
   public void testAdam() {
-    isOptimized(underTest.optimise(
+    isOptimized(underTest.optimize(
         network, xorDataset,
         labels, new MSEFunction(), 30000, 0.04,
         OptimAlgo.adam
@@ -94,7 +94,7 @@ public class OptimizerTest {
 
   @Test
   public void resetDeltas() {
-    underTest.optimise(
+    underTest.optimize(
         network, xorDataset,
         labels, new MSEFunction(), 10000, 0.01,
         OptimAlgo.adam

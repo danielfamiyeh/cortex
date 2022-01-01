@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+/**
+ * Axon test suite
+ */
 public class AxonTest {
   private static Axon underTest;
   private static Neuron testDest;
@@ -42,7 +45,7 @@ public class AxonTest {
   @Test
   public void randomiseWeight() {
     double randomWeight;
-    underTest.randomiseWeight();
+    underTest.randomizeWeight();
     randomWeight = underTest.getWeight();
 
     Assertions.assertTrue(randomWeight >= -0.5 &&
