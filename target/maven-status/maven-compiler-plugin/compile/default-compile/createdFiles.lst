@@ -1,0 +1,13 @@
+data/MinMax.class
+neuron/activation/ActivationFunction.class
+neuron/Layer.class
+optimizer/DNNOptimizer.class
+neuron/Neuron.class
+optimizer/OptimAlgo.class
+neuron/activation/SigmoidFunction.class
+optimizer/loss/LossFunction.class
+data/ZScore.class
+data/FileIO.class
+neuron/Axon.class
+optimizer/loss/MSEFunction.class
+neuron/activation/ReluFunction.class
