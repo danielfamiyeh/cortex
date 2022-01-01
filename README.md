@@ -1,4 +1,4 @@
-# cortex
+# cortex ![workflow](https://github.com/danielfamiyeh/cortex/actions/workflows/maven.yml/badge.svg)
 A deep learning library.
 
 ## Features
